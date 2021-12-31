@@ -1,0 +1,15 @@
+// $placeholder-opacity-max: 0.03;
+// $placeholder-opacity-min: 1;
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+
+.blur {
+  filter: blur(1.1rem);
+  @extend .placeholder-wave;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  @extend .blur;
+}

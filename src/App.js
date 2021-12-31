@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import Navbar from "./components/Navbar";
+import Movies from "./pages/Movies";
+import MoviePage from "./pages/MoviePage";
+import MovieSearch from "./pages/MovieSearch";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <main className="container pt-5">
+        {/* DON'T wrap switch to the whole DOM => to not get an error */}
+        {/* Switch should wrap Route..s only */}
+        <Switch>
+          <Route path={"/"} exact component={Movies} />
+          <Route path={"/page/:page"} exact component={Movies} />
+          <Route path={"/query/:query"} exact component={MovieSearch} />
+          <Route path={"/movie/:id"} exact component={MoviePage} />
+        </Switch>
+      </main>
+    </BrowserRouter>
   );
 }
 
