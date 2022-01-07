@@ -6,15 +6,16 @@ const Nav = () => {
   const history = useHistory();
   let location = useLocation();
   let pageNum = parseInt(location.pathname.split("/")[2]) || 1; // #accessing page number from the location
-  
 
-  const prevPage = () => {
+  const prevPage = (event) => {
+    event.preventDefault();
     if (pageNum > 1) {
       pageNum--;
       history.push(`/page/${pageNum}`);
     }
   };
-  const nextPage = () => {
+  const nextPage = (event) => {
+    event.preventDefault();
     pageNum++;
     history.push(`/page/${pageNum}`);
   };
@@ -23,7 +24,9 @@ const Nav = () => {
       <ul className="pagination d-flex justify-content-between align-items-center">
         <li className="page-item">
           <Button
-            className={`page-link shadow-lg ${pageNum <= 1 ? "disabled" : null}`}
+            className={`page-link shadow-lg ${
+              pageNum <= 1 ? "disabled" : null
+            }`}
             onClick={prevPage}
           >
             Previous

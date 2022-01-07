@@ -13,3 +13,16 @@
   object-fit: cover;
   @extend .blur;
 }
+
+.fav-heart {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  z-index: 100;
+  mix-blend-mode: difference;
+  background: transparent;
+  display: inline;
+  padding: 0;
+  margin: 0;
+  border: none;
+}

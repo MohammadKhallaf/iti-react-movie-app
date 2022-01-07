@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Dropdown, DropdownButton } from "react-bootstrap";
-import { NavLink, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, NavLink, useHistory } from "react-router-dom";
 
 const Navbar = () => {
+  const counter = useSelector((state) => state.counter);
   const history = useHistory()
   const [query, setQuery] = useState("");
   const searchMovie = (e) => {
@@ -38,9 +40,9 @@ const Navbar = () => {
         >
           <ul className="navbar-nav ">
             <li className="nav-item">
-              <a className="nav-link " href="/">
-                Favourites
-              </a>
+              <Link className="nav-link " to={"/"}>
+                Favourites {counter}
+              </Link>
             </li>
           </ul>
           <div className="d-flex flex-wrap">
