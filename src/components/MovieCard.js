@@ -1,23 +1,22 @@
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+import { favActions } from "../store/slices/fav-slice";
 const MovieCard = (props) => {
+  const item = props.item;
   const dispatch = useDispatch();
-  const favMovies = useSelector((state) => state.favs);
-  const INITIAL_FAV_MOVIE = favMovies.includes(props.item.id);
-  console.log(props.item.id, INITIAL_FAV_MOVIE);
-  const [favourite, setFavourite] = useState(INITIAL_FAV_MOVIE);
-  //   console.log(favourite)
-  const toggleFavourite = (MovieID) => { 
-    setFavourite((prevState) => !prevState);
-
-    console.log(favourite, "Changed", props.item.id);
-    if (favourite) {
-      dispatch({ type: "add-favourite", movieID: props.item.id });
-    } else {
-      dispatch({ type: "remove-favourite", movieID: props.item.id });
-    }
+  const favouriteMovies = useSelector((state) => state.favlist.items);
+  console.timeLog(favouriteMovies);
+  const toggleFavourite = () => {
+    dispatch(
+      favActions.toggle({
+        id: item.id,
+        title: item.title,
+        poster_path: item.poster_path,
+        overview: item.overview,
+        price: item.price,
+        date: item.date,
+      })
+    );
   };
 
   return (
@@ -28,7 +27,11 @@ const MovieCard = (props) => {
           onClick={toggleFavourite.bind(this, props.item.id)}
         >
           <i
-            className={`${favourite ? "fas" : "far"} fa-heart fs-5 text-danger`}
+            className={`${
+              favouriteMovies.find((item) => item.id === props.item.id)
+                ? "fas"
+                : "far"
+            } fa-heart fs-5 text-danger`}
           ></i>
         </button>
         <img

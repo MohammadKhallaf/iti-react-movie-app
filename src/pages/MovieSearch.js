@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import Nav from "../components/Nav";
 
@@ -15,7 +14,6 @@ export const instance = axios.create({
 });
 
 const Movies = () => {
-  const [page, setPage] = useState(1);
   const param = useParams();
   const [movieList, setMovielist] = useState([]);
 

@@ -1,19 +1,18 @@
 import { useState } from "react";
-import { Dropdown, DropdownButton } from "react-bootstrap";
+import { Badge, Dropdown, DropdownButton } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 const Navbar = () => {
-  const counter = useSelector((state) => state.counter);
-  const history = useHistory()
+  const counter = useSelector(state=> state.favlist.quantity)
+  const history = useHistory();
   const [query, setQuery] = useState("");
   const searchMovie = (e) => {
     setQuery(e.target.value);
   };
   const runSearch = (e) => {
     e.preventDefault();
-    history.push(`/query/${query}`)
-
+    history.push(`/query/${query}`);
   };
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -40,9 +39,13 @@ const Navbar = () => {
         >
           <ul className="navbar-nav ">
             <li className="nav-item">
-              <Link className="nav-link " to={"/"}>
-                Favourites {counter}
-              </Link>
+              <NavLink
+                className="nav-link btn btn-outline-success"
+                to={"/favList"}
+              >
+                <span>Favourites &nbsp; </span>
+                <Badge>{counter}</Badge>
+              </NavLink>
             </li>
           </ul>
           <div className="d-flex flex-wrap">

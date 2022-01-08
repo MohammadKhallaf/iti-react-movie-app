@@ -3,7 +3,7 @@ import Movies from "./pages/Movies";
 import MoviePage from "./pages/MoviePage";
 import MovieSearch from "./pages/MovieSearch";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
+import FavouriteList from "./pages/FavouriteList";
 
 function App() {
   return (
@@ -17,6 +17,7 @@ function App() {
           <Route path={"/page/:page"} exact component={Movies} />
           <Route path={"/query/:query"} exact component={MovieSearch} />
           <Route path={"/movie/:id"} exact component={MoviePage} />
+          <Route path={"/favList"} exact component={FavouriteList} />
         </Switch>
       </main>
     </BrowserRouter>

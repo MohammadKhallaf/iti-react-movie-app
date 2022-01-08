@@ -4,9 +4,11 @@
 
 A movie app to demonstrate using API and creating dynamic React App
 
-## Technologies
+## Dependencies
 
 - React library
+- Redux (&react-redux)
+- Redux Toolkit
 - Axios (=> HTTP client)
   - you can find docs [here](https://axios-http.com/)
 - Bootstrap
