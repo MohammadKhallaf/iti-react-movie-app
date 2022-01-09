@@ -5,10 +5,12 @@ import MovieSearch from "./pages/MovieSearch";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import FavouriteList from "./pages/FavouriteList";
 
+
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      
       <main className="container pt-5">
         {/* DON'T wrap switch to the whole DOM => to not get an error */}
         {/* Switch should wrap Route..s only */}

@@ -1,37 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { instance, AUTH_API } from "./Movies";
+import { Error } from "../components/Error";
+import { getSingleMovie } from "../store/actions";
+
 const MoviePage = () => {
-  const [movie, setMovie] = useState({});
+  const dispatch = useDispatch();
+  const movie = useSelector((state) => state.movlist.results[0]);
   const param = useParams();
   useEffect(() => {
-    instance
-      .get(`/movie/${param.id}?api_key=${AUTH_API}`)
-      .then((result) => result.data)
-      .then((data) => {
-        setMovie(data);
-      })
-      .catch((error) => console.log(error));
-  });
+    dispatch(getSingleMovie(param.id));
+  }, [param.id,dispatch]);
 
   return (
-    <div className="container bg-light rounded p-5">
-      <div className="row">
-        <div classname="col-6">
-          <img
-            src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
-            className="blur"
-            alt="film poster"
-          />
+    (movie && (
+      <div className="container bg-light rounded p-5">
+        {console.log(movie)}
+        <div className="row">
+          <div className="col-6">
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
+              className="blur"
+              alt="film poster"
+            />
+          </div>
+          <article className="col-6">
+            <h1>{movie.title}</h1>
+            <time>{movie.release_date}</time>
+            <p>${parseInt(movie.budget) / 1000000.0}M</p>
+            <p>{movie.overview}</p>
+          </article>
         </div>
-        <article className="col-6">
-          <h1>{movie.title}</h1>
-          <time>{movie.release_date}</time>
-          <p>${parseInt(movie.budget) / 1000000.0}M</p>
-          <p>{movie.overview}</p>
-        </article>
       </div>
-    </div>
+    )) ||<Error />
   );
 };
 

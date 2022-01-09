@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import Nav from "../components/Nav";
+import { AUTH_API } from "../credentials";
 
-export const AUTH_API = "6207b681b0d7a1d67cd9fcd8fd1b5848";
 /**
  * Creating instane for shared config.
  * You can use this instance for different integration methods */

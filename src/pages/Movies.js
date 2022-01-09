@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import Nav from "../components/Nav";
-
-export const AUTH_API = "6207b681b0d7a1d67cd9fcd8fd1b5848";
+import { useDispatch, useSelector } from "react-redux";
+import { getMovieList } from "../store/actions";
 /**
  * Creating instane for shared config.
  * You can use this instance for different integration methods */
@@ -14,24 +14,18 @@ export const instance = axios.create({
 });
 
 const Movies = () => {
+  const dipatch = useDispatch();
   const param = useParams();
-  const [movieList, setMovielist] = useState([]);
-
+  const movieList = useSelector((state) => state.movlist.results);
   useEffect(() => {
-    instance
-      .get("/movie/popular?api_key=" + AUTH_API + `&page=${param.page}`)
-      .then((result) => result.data) //return data
-      .then((data) => {
-        setMovielist([...data.results]);
-      })
-      .catch((error) => console.log(error));
+    dipatch(getMovieList(param.page));
   }, [param.page]);
 
   return (
     <>
       <section className="row row-cols-lg-3 g-4">
         {movieList.map((item) => {
-          return <MovieCard item={item} key={item.id}/>;
+          return <MovieCard item={item} key={item.id} />;
         })}
       </section>
 

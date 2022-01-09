@@ -4,7 +4,7 @@
 
 A movie app to demonstrate using API and creating dynamic React App
 
-## Dependencies
+## Dependencies   
 
 - React library
 - Redux (&react-redux)

@@ -5,7 +5,6 @@ const MovieCard = (props) => {
   const item = props.item;
   const dispatch = useDispatch();
   const favouriteMovies = useSelector((state) => state.favlist.items);
-  console.timeLog(favouriteMovies);
   const toggleFavourite = () => {
     dispatch(
       favActions.toggle({

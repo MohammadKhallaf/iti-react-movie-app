@@ -16,7 +16,7 @@ const FavouriteList = () => {
       )) || (
         <div className="container">
           <h1>There is no movies in your favourite list</h1>
-          <NavLink exact className="btn btn-outline-success" to={"/"} key={"4"}>
+          <NavLink exact className="btn btn-outline-success" to={"/"}>
             Add some now
           </NavLink>
         </div>
