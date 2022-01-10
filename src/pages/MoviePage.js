@@ -10,12 +10,14 @@ const MoviePage = () => {
   const param = useParams();
   useEffect(() => {
     dispatch(getSingleMovie(param.id));
-  }, [param.id,dispatch]);
+    
+
+  }, [movie]);
 
   return (
     (movie && (
       <div className="container bg-light rounded p-5">
-        {console.log(movie)}
+   
         <div className="row">
           <div className="col-6">
             <img

@@ -1,4 +1,3 @@
-import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from "react";
 import {
   Form,
@@ -198,7 +197,7 @@ const RegisterForm = () => {
               variant={`${!passType.pass.match("text") ? "primary" : "danger"}`}
             >
               <i
-                className={`bi bi-eye-fill text-${
+                className={`fas fa-eye text-${
                   passType.pass.match("text") ? "dark" : "light"
                 }`}
               ></i>
@@ -224,7 +223,7 @@ const RegisterForm = () => {
               }`}
             >
               <i
-                className={`bi bi-eye-fill text-${
+                className={`fas fa-eye text-${
                   passType.repass.match("text") ? "dark" : "light"
                 }`}
               ></i>

@@ -5,9 +5,8 @@ import {
   Toast,
   ToastContainer,
 } from "react-bootstrap";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import UserContext from "../../store/user-context";
 //#region
 /**
  *
@@ -33,13 +32,13 @@ const isValidInput = (regExp, fieldState, fieldValue, setState, states) => {
 //#endregion
 
 const LoginForm = () => {
-
+  const usrCtx = useContext(UserContext);
   /* Initialize states */
   const [valid, setValid] = useState({
     email: false,
     password: false,
   });
-  const [userEm , setUsr] = useState('')
+  const [userEm, setUsr] = useState("");
   /*<--------->*/
   const [showB, setShowB] = useState(false);
   const toggleShowToast = () => setShowB(!showB);
@@ -47,10 +46,10 @@ const LoginForm = () => {
   /* Event Handlers */
   /*<---{Form}--->*/
   const submitHandler = (e) => {
-    
     e.preventDefault();
     if (valid.email & valid.password) {
       setShowB(true);
+      usrCtx.onLogIn();
     } else {
       return false;
     }
@@ -63,8 +62,7 @@ const LoginForm = () => {
         ...valid,
         email: true,
       });
-      setUsr((e.target.value.split('@'))[0])
-
+      setUsr(e.target.value.split("@")[0]);
     } else {
       setValid({
         ...valid,
@@ -77,15 +75,14 @@ const LoginForm = () => {
     const passRegex = /^[a-zA-Z\d]{8,}$/;
 
     if (passRegex.test(e.target.value)) {
-
       setValid({
         ...valid,
-        password: true
+        password: true,
       });
     } else {
       setValid({
         ...valid,
-        password: false
+        password: false,
       });
     }
   };
@@ -103,7 +100,7 @@ const LoginForm = () => {
   return (
     <>
       <Form className="p-3" onSubmit={submitHandler}>
-        <Form.Group className="mb-3" >
+        <Form.Group className="mb-3">
           <Form.Label>Email address</Form.Label>
 
           <Form.Control
@@ -116,7 +113,7 @@ const LoginForm = () => {
             Please write a valid email address
           </div>
         </Form.Group>
-        <Form.Group className="mb-3" >
+        <Form.Group className="mb-3">
           <Form.Label>Password</Form.Label>
           <InputGroup>
             <Form.Control
@@ -130,13 +127,13 @@ const LoginForm = () => {
               variant={`${!passType.match("text") ? "primary" : "danger"}`}
             >
               <i
-                className={`bi bi-eye-fill text-${
+                className={`fas fa-eye text-${
                   passType.match("text") ? "dark" : "light"
                 }`}
               ></i>
             </Button>
           </InputGroup>
-          <div className={`text-danger ${valid.password? "d-none" : null}`}>
+          <div className={`text-danger ${valid.password ? "d-none" : null}`}>
             Password must contain at least 8 chars
           </div>
         </Form.Group>

@@ -1,12 +1,20 @@
-import { useState } from "react";
-import { Badge, Dropdown, DropdownButton } from "react-bootstrap";
+import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 
+import { Badge } from "react-bootstrap";
+
+import { AccountDropDown } from "./NavBar/AccountDropDown";
+import UserContext from "../store/user-context";
+import { TopNav } from "./NavBar/TopNav";
+import { NavSearch } from "./NavBar/NavSearch";
+
 const Navbar = () => {
-  const counter = useSelector(state=> state.favlist.quantity)
+  const usrCtx = useContext(UserContext);
+  const counter = useSelector((state) => state.favlist.quantity);
   const history = useHistory();
   const [query, setQuery] = useState("");
+  console.log("NAV:", !usrCtx.isLoggedIn);
   const searchMovie = (e) => {
     setQuery(e.target.value);
   };
@@ -15,78 +23,55 @@ const Navbar = () => {
     history.push(`/query/${query}`);
   };
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container-fluid ">
-        <div className="navbar-brand fw-bold" href="#">
-          Movie App
-        </div>
+    <TopNav>
+      <NavLink exact className="navbar-brand fw-bold" to={"/"}>
+        Movie App
+      </NavLink>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
 
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div
-          className="collapse navbar-collapse d-lg-flex justify-content-between px-5 px-lg-0"
-          id="navbarNav"
-        >
+      <div
+        className="collapse navbar-collapse d-lg-flex justify-content-between px-5 px-lg-0"
+        id="navbarNav"
+      >
+        {usrCtx.isLoggedIn ? (
           <ul className="navbar-nav ">
             <li className="nav-item">
               <NavLink
                 className="nav-link btn btn-outline-success"
                 to={"/favList"}
               >
-                <span>Favourites &nbsp; </span>
-                <Badge>{counter}</Badge>
+                <span>
+                  Favourites &nbsp;
+                </span>
+                <span className="badge bg-danger">{counter}</span>
               </NavLink>
             </li>
           </ul>
-          <div className="d-flex flex-wrap">
-            <form
-              onSubmit={runSearch}
-              className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
-            >
-              <input
-                type="search"
-                className="form-control form-control-dark"
-                placeholder="Search..."
-                aria-label="Search"
-                onChange={searchMovie}
-              />
-            </form>
+        ) : null}
 
-            <ul className="navbar-nav ">
-              <li className="nav-item">
-                <NavLink to={"/"} className="nav-link active">
-                  Home
-                </NavLink>
-              </li>
+        <div className="d-flex flex-wrap ms-auto">
+          <NavSearch onSubmit={runSearch} onChange={searchMovie} />
 
-              <li className="nav-item">
-                <DropdownButton
-                  variant="outline-secondary rounded rounded-lg"
-                  title="Account"
-                  id="input-group-dropdown-4"
-                  align="end"
-                >
-                  <Dropdown.Item href="#">Login</Dropdown.Item>
-                  <Dropdown.Item href="#">Register</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item href="#">Logout</Dropdown.Item>
-                </DropdownButton>
-              </li>
-            </ul>
-          </div>
+          <ul className="navbar-nav ">
+           <li className="nav-item">
+
+              <AccountDropDown />
+           </li>
+            
+          </ul>
         </div>
       </div>
-    </nav>
+    </TopNav>
   );
 };
 export default Navbar;

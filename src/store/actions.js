@@ -28,19 +28,21 @@ export const getMovieList = (page) => {
 export const getSingleMovie = (id) => {
   return async (dispatch) => {
     axiosInstance
-      .get(`/movie/${id}?api_key=${AUTH_API}`)
-      .then((res) => {
-        if (!res.ok) {
+    .get(`/movie/${id}?api_key=${AUTH_API}`)
+    .then((res) => {
+      console.log(res)
+        if (!res) {
           throw new Error("trying to reach not found resource");
         }
         dispatch(
           movActions.getMovies({
-            page: res.data.page,
+            page: 0,
             results: [res.data],
           })
         );
       })
 
       .catch((error) => console.log(error, "E"));
+      
   };
 };
