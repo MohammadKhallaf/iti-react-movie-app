@@ -8,10 +8,10 @@ export const axiosInstance = axios.create({
   baseURL: "https://api.themoviedb.org/3",
 });
 
-export const getMovieList = (page) => {
+export const getMovieList = (page,lang) => {
   return async (dispatch) => {
     axiosInstance
-      .get("/movie/popular?api_key=" + AUTH_API + `&page=${page}`)
+      .get("/movie/popular?api_key=" + AUTH_API + `&page=${page}&language=${lang}`)
       .then((res) => {
         dispatch(
           movActions.getMovies({

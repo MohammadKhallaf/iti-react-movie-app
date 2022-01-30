@@ -10,9 +10,10 @@ import { TopNav } from "./NavBar/TopNav";
 import { NavSearch } from "./NavBar/NavSearch";
 
 const Navbar = () => {
-  const usrCtx = useContext(UserContext);
+
   const counter = useSelector((state) => state.favlist.quantity);
   const history = useHistory();
+  const usrCtx= useContext(UserContext)
   const [query, setQuery] = useState("");
   console.log("NAV:", !usrCtx.isLoggedIn);
   const searchMovie = (e) => {
@@ -22,6 +23,7 @@ const Navbar = () => {
     e.preventDefault();
     history.push(`/query/${query}`);
   };
+  
   return (
     <TopNav>
       <NavLink exact className="navbar-brand fw-bold" to={"/"}>
@@ -58,7 +60,15 @@ const Navbar = () => {
             </li>
           </ul>
         ) : null}
-
+        <button
+                className="nav-link btn btn-outline-success"
+                onClick={usrCtx.toggleLang}
+              >
+                <span>
+                  Language &nbsp;
+                </span>
+                <span className="badge bg-danger">{usrCtx.lang}</span>
+              </button>
         <div className="d-flex flex-wrap ms-auto">
           <NavSearch onSubmit={runSearch} onChange={searchMovie} />
 

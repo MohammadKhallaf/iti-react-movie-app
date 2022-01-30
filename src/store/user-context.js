@@ -5,6 +5,7 @@ const UserContext = React.createContext({
   onLogIn: () => {},
   onLogOut: () => {},
   lang: "en",
+  toggleLang: ()=>{},
   theme: "light",
 });
 

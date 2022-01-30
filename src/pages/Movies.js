@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import Nav from "../components/Nav";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovieList } from "../store/actions";
+import UserContext from "../store/user-context";
 /**
  * Creating instane for shared config.
  * You can use this instance for different integration methods */
@@ -14,12 +15,13 @@ export const instance = axios.create({
 });
 
 const Movies = () => {
+  const usrCtx  = useContext(UserContext)
   const dipatch = useDispatch();
   const param = useParams();
   const movieList = useSelector((state) => state.movlist.results);
   useEffect(() => {
-    dipatch(getMovieList(param.page));
-  }, [param.page]);
+    dipatch(getMovieList(param.page,usrCtx.lang));
+  }, [param.page,usrCtx.lang]);
 
   return (
     <>

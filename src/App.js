@@ -9,6 +9,16 @@ import MoviePage from "./pages/MoviePage";
 import MovieSearch from "./pages/MovieSearch";
 import FavouriteList from "./pages/FavouriteList";
 import RegisterForm from "./components/Form/RegisterForm"
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "./credentials"
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+
 
 /**
  * TODO: add **useState** to change the values of the isLoggedIn and theme and lang
@@ -27,7 +37,14 @@ function App() {
     setIsLoggedIn(false);
     sessionStorage.setItem("logged", false);
   };
+const onLangToggel = () =>{
+  if (lang=="en"){
 
+    setLang("ar")
+  }else{
+    setLang("en")
+  }
+}
   useEffect(() => {
     setIsLoggedIn(JSON.parse(sessionStorage.getItem("logged")));
     console.log(sessionStorage.getItem("logged"));
@@ -40,6 +57,7 @@ function App() {
         onLogOut: onLogOutHandler,
         lang: lang,
         theme: theme,
+        toggleLang: onLangToggel,
       }}
     >
       <BrowserRouter>
