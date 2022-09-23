@@ -41,7 +41,8 @@ export const UserContextProvider = (props) => {
   };
   return (
     <UserContext.Provider value={contxtValue}>
-      {props.childrn}
+      {/* {props.children} */}
+      {React.Children.only(props.children)}
     </UserContext.Provider>
   );
 };
