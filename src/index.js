@@ -13,10 +13,8 @@ import { UserContextProvider } from "./store/user-context";
 ReactDOM.render(
   <Provider store={store}>
     <UserContextProvider>
-
-    <App />
+      <App />
     </UserContextProvider>
   </Provider>,
-
   document.getElementById("root")
 );

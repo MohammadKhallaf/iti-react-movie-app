@@ -26,7 +26,7 @@ function App() {
     <BrowserRouter>
       <Navbar />
 
-      <main className="container pt-5">
+      <main className="container pt-5 ">
         {/* DON'T wrap switch to the whole DOM => to not get an error */}
         {/* Switch should wrap Route..s only */}
         <Switch>

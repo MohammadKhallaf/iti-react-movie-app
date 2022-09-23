@@ -20,7 +20,10 @@ const MovieCard = (props) => {
 
   return (
     <div className="col" key={props.item.id}>
-      <div className="card position-relative" style={{ width: "20rem" }}>
+      <div
+        className="card position-relative rounded-3 overflow-hidden"
+        style={{ width: "20rem" }}
+      >
         <button
           className="fav-heart"
           onClick={toggleFavourite.bind(this, props.item.id)}
