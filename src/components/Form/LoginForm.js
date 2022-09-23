@@ -49,7 +49,7 @@ const LoginForm = () => {
     e.preventDefault();
     if (valid.email & valid.password) {
       setShowB(true);
-      usrCtx.onLogIn();
+      usrCtx.logIn();
     } else {
       return false;
     }

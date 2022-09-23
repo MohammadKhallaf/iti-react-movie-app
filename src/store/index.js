@@ -13,13 +13,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import favSliceReducer from "./slices/fav-slice";
 import { movReducer } from "./slices/movies-slice";
 
-const composeEnhancers =
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
 const store = configureStore({
   reducer: {
     favlist: favSliceReducer,
     movlist: movReducer,
   },
-},composeEnhancers);
+});
 
 export default store;

@@ -22,7 +22,7 @@ export const AccountDropDown = () => {
               exact
               to={"/login"}
               className={"dropdown-item"}
-              onClick={usrCtx.onLogIn}
+              onClick={usrCtx.logIn}
             >
               Login
             </NavLink>
@@ -42,7 +42,7 @@ export const AccountDropDown = () => {
               className={`dropdown-item ${
                 usrCtx.isLoggedIn ? null : "disabled"
               }`}
-              onClick={usrCtx.onLogOut}
+              onClick={usrCtx.logOut}
             >
               Logout
             </NavLink>
