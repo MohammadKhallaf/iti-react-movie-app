@@ -1,5 +1,4 @@
 import axios from "axios";
-import { AUTH_API } from "../credentials";
 import { movActions } from "./slices/movies-slice";
 /**
  * Creating instane for shared config.
@@ -37,7 +36,7 @@ export const getMovieList = (page, lang) => {
 export const getSingleMovie = (id) => {
   return async (dispatch) => {
     axiosInstance
-      .get(`/movie/${id}?api_key=${AUTH_API}`)
+      .get(`/movie/${id}?api_key=${  process.env.REACT_APP_MOVIEDB_AUITH_API}`)
       .then((res) => {
         console.log(res);
         if (!res) {
