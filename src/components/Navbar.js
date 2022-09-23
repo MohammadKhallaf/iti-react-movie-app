@@ -1,21 +1,22 @@
 import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-
-import { Badge } from "react-bootstrap";
-
 import { AccountDropDown } from "./NavBar/AccountDropDown";
 import UserContext from "../store/user-context";
 import { TopNav } from "./NavBar/TopNav";
 import { NavSearch } from "./NavBar/NavSearch";
+import styled from "styled-components";
+
+const IconBadged = styled.span`
+  outline: 3px solid var(--bs-dark);
+  scale: 0.8;
+`;
 
 const Navbar = () => {
-
   const counter = useSelector((state) => state.favlist.quantity);
   const history = useHistory();
-  const usrCtx= useContext(UserContext)
+  const usrCtx = useContext(UserContext);
   const [query, setQuery] = useState("");
-  console.log("NAV:", !usrCtx.isLoggedIn);
   const searchMovie = (e) => {
     setQuery(e.target.value);
   };
@@ -23,7 +24,7 @@ const Navbar = () => {
     e.preventDefault();
     history.push(`/query/${query}`);
   };
-  
+
   return (
     <TopNav>
       <NavLink exact className="navbar-brand fw-bold" to={"/"}>
@@ -48,36 +49,35 @@ const Navbar = () => {
         {usrCtx.isLoggedIn ? (
           <ul className="navbar-nav ">
             <li className="nav-item">
-              <NavLink
-                className="nav-link btn btn-outline-success"
-                to={"/favList"}
-              >
-                <span>
-                  Favourites &nbsp;
+              <NavLink className="nav-link btn shadow-none" to={"/favList"}>
+                <span className="position-relative">
+                  <i class="fas fa-heart fs-5 text-white-50"></i>
+                  <IconBadged className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger ">
+                    {counter}
+                  </IconBadged>
                 </span>
-                <span className="badge bg-danger">{counter}</span>
               </NavLink>
             </li>
           </ul>
         ) : null}
         <button
-                className="nav-link btn btn-outline-success"
-                onClick={usrCtx.toggleLang}
-              >
-                <span>
-                  Language &nbsp;
-                </span>
-                <span className="badge bg-danger">{usrCtx.lang}</span>
-              </button>
+          className="nav-link btn shadow-none"
+          onClick={usrCtx.toggleLang}
+        >
+          <span className="position-relative">
+            <i class="fas fa-globe-africa fs-5 text-white-50"></i>
+            <IconBadged className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              {usrCtx.lang}
+            </IconBadged>
+          </span>
+        </button>
         <div className="d-flex flex-wrap ms-auto">
           <NavSearch onSubmit={runSearch} onChange={searchMovie} />
 
           <ul className="navbar-nav ">
-           <li className="nav-item">
-
+            <li className="nav-item">
               <AccountDropDown />
-           </li>
-            
+            </li>
           </ul>
         </div>
       </div>

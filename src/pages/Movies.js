@@ -27,7 +27,7 @@ const Movies = () => {
 
   return (
     <>
-      <section className="row row-cols-lg-3 g-4">
+      <section className="row row-cols-lg-3 g-5">
         {movieList.map((item) => {
           return <MovieCard item={item} key={item.id} />;
         })}
