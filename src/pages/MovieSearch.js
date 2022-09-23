@@ -1,9 +1,9 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+
 import MovieCard from "../components/MovieCard";
 import Nav from "../components/Nav";
-import { AUTH_API } from "../credentials";
 
 /**
  * Creating instane for shared config.
@@ -19,7 +19,11 @@ const Movies = () => {
 
   useEffect(() => {
     instance
-      .get("/search/movie?api_key=" + AUTH_API + `&query={${param.query}}`)
+      .get(
+        "/search/movie?api_key=" +
+          process.env.REACT_APP_MOVIEDB_AUITH_API +
+          `&query={${param.query}}`
+      )
       .then((result) => result.data) //return data
       .then((data) => {
         console.log(data.results);
