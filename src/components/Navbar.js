@@ -1,12 +1,15 @@
 import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
+import { Howl, Howler } from "howler";
 import { AccountDropDown } from "./NavBar/AccountDropDown";
 import UserContext from "../store/user-context";
 import { TopNav } from "./NavBar/TopNav";
 import { NavSearch } from "./NavBar/NavSearch";
 import styled from "styled-components";
 
+import clickAudioSrc from "../assets/audio/click.mp3";
+import { useEffect } from "react";
 const IconBadged = styled.span`
   outline: 3px solid var(--bs-dark);
   scale: 0.8;
@@ -17,6 +20,12 @@ const Navbar = () => {
   const history = useHistory();
   const usrCtx = useContext(UserContext);
   const [query, setQuery] = useState("");
+
+  const clickAudio = new Audio(clickAudioSrc);
+  const sound = new Howl({
+    src: [clickAudioSrc],
+    preload: true,
+  });
   const searchMovie = (e) => {
     setQuery(e.target.value);
   };
@@ -24,7 +33,9 @@ const Navbar = () => {
     e.preventDefault();
     history.push(`/query/${query}`);
   };
-
+  useEffect(() => {
+    return sound.stop();
+  }, [sound]);
   return (
     <TopNav>
       <NavLink exact className="navbar-brand fw-bold" to={"/"}>
@@ -62,7 +73,10 @@ const Navbar = () => {
         ) : null}
         <button
           className="nav-link btn shadow-none"
-          onClick={usrCtx.toggleLang}
+          onClick={() => {
+            usrCtx.toggleLang();
+            sound.play();
+          }}
         >
           <span className="position-relative">
             <i class="fas fa-globe-africa fs-5 text-white-50"></i>
